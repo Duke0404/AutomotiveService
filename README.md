@@ -16,14 +16,150 @@ Endpoints related to retreiving data related to all the orders to the centre.
 ```GET /orders/:limit```
 Returns a list of orders in reverse chronological order with specified limit.
 
+<sub><sup>REQUEST</sup></sub>
+```
+GET /orders/3
+```
+
+<sub><sup>RESPONSE</sup></sub>
+```json
+HTTPS/1.1 200 OK
+"Content-Type": application/json
+
+{
+	"limit": 3,
+	"orders": [
+		{
+			"orderID": "74",
+			"customerID": "kermit.frog",
+			"modelID": "123456789",
+			"received": "2023-03-01 12:00:00",
+			"completed": false,
+			"scheduled": "2023-04-01 12:00:00",
+		},
+		{
+			"orderID": "73",
+			"customerID": "spongebobSP",
+			"modelID": "234567890",
+			"received": "2023-01-01 12:00:00",
+			"completed": "2023-01-15 12:00:00",
+			"scheduled": false,
+		},
+		{
+			"orderID": "72",
+			"customerID": "AangTheAvatar",
+			"modelID": "2468101214",
+			"received": "2022-12-30 12:00:00",
+			"completed": false,
+			"scheduled": "2023-04-01 12:00:00",
+		}
+	]
+}
+```
+
 ### Order
 Endpoints related to manipulating data related to a specific order.
 
 ```GET /order/:id```
 Returns the order with the specified id.
 
+<sub><sup>REQUEST</sup></sub>
+```
+GET /order/70
+```
+
+<sub><sup>RESPONSE</sup></sub>
+
+If order exists:
+```json
+HTTPS/1.1 200 OK
+"Content-Type": application/json
+
+{
+	"orderID": "70",
+	"customerID": "peppa.pig",
+	"modelID": "695652",
+	"received": "2023-01-01 12:00:00",
+	"completed": false,
+	"scheduled": "2023-04-01 12:00:00",
+	"description": "Car is making a weird noise when I turn the steering wheel.",
+	"price": 1000,
+	"paid": false,
+	"parts": [
+		{
+			"partID": "101",
+			"quantity": 1
+		},
+		{
+			"partID": "2D6",
+			"quantity": 2
+		}
+	]
+}
+```
+
+If order does not exist:
+
+```json
+HTTPS/1.1 404 Not Found
+"content-type": "application/json"
+
+{
+	"error": "Order not found."
+}
+```
+
 ```POST /order```
-Creates a new order.
+Creates a new order. Requires manager authorization.
+
+<sub><sup>REQUEST</sup></sub>
+```json
+POST /order/
+
+{
+	"orderID": "75",
+	"customerID": "sonic",
+	"modelID": "123456780",
+	"received": "2023-03-01 12:00:00",
+	"completed": false,
+	"scheduled": "2023-04-01 12:00:00",
+	"description": "Can't go faster than 50mph.",
+	"price": 400,
+	"paid": true,
+	"parts": null
+}
+```
+
+<sub><sup>RESPONSE</sup></sub>
+
+If order is created successfully:
+```json
+HTTPS/1.1 200 OK
+"Content-Type": application/json
+
+{
+	"orderID": "75",
+	"customerID": "sonic",
+	"modelID": "123456780",
+	"received": "2023-03-01 12:00:00",
+	"completed": false,
+	"scheduled": "2023-04-01 12:00:00",
+	"description": "Can't go faster than 50mph.",
+	"price": 400,
+	"paid": true,
+	"parts": null
+}
+```
+
+If authorization fails:
+```json
+HTTPS/1.1 401 Unauthorized
+"content-type": application/json
+
+{
+	"error": "Unauthorized."
+}
+```
 
 ```PUT /order/:id```
 Updates the order with the specified id.
