@@ -22,10 +22,11 @@ GET /orders/3
 ```
 
 <sub><sup>RESPONSE</sup></sub>
-```json
+```
 HTTPS/1.1 200 OK
-"Content-Type": application/json
-
+Content-Type: application/json
+```
+```json
 {
 	"limit": 3,
 	"orders": [
@@ -71,10 +72,11 @@ GET /order/70
 <sub><sup>RESPONSE</sup></sub>
 
 If order exists:
-```json
+```
 HTTPS/1.1 200 OK
-"Content-Type": application/json
-
+Content-Type: application/json
+```
+```json
 {
 	"orderID": "70",
 	"customerID": "peppa.pig",
@@ -100,22 +102,24 @@ HTTPS/1.1 200 OK
 
 If order does not exist:
 
-```json
+```
 HTTPS/1.1 404 Not Found
-"content-type": "application/json"
-
+content-type: application/json
+```
+```json
 {
 	"error": "Order not found."
 }
 ```
 
 ```POST /order```
-Creates a new order. Requires manager authorization.
+Creates a new order. Requires employee authorization.
 
 <sub><sup>REQUEST</sup></sub>
-```json
+```
 POST /order/
-
+```
+```json
 {
 	"orderID": "75",
 	"customerID": "sonic",
@@ -133,10 +137,11 @@ POST /order/
 <sub><sup>RESPONSE</sup></sub>
 
 If order is created successfully:
-```json
+```
 HTTPS/1.1 200 OK
-"Content-Type": application/json
-
+Content-Type: application/json
+```
+```json
 {
 	"orderID": "75",
 	"customerID": "sonic",
@@ -152,20 +157,105 @@ HTTPS/1.1 200 OK
 ```
 
 If authorization fails:
-```json
+```
 HTTPS/1.1 401 Unauthorized
-"content-type": application/json
-
+content-type: application/json
+```
+```json
 {
 	"error": "Unauthorized."
 }
 ```
 
 ```PUT /order/:id```
-Updates the order with the specified id.
+Updates the order with the specified id. Requires employee authorization.
+
+<sub><sup>REQUEST</sup></sub>
+```
+PUT /order/
+```
+```json
+{
+	"orderID": "75",
+	"customerID": "sonic",
+	"modelID": "123456780",
+	"received": "2023-03-01 12:00:00",
+	"completed": false,
+	"scheduled": "2023-04-01 12:00:00",
+	"description": "Can't go faster than 50mph.",
+	"price": 400,
+	"paid": true,
+	"parts": [
+		{
+			"partID": "J7"
+			"quantity": 2
+		}
+	]
+}
+```
+
+<sub><sup>RESPONSE</sup></sub>
+
+If order is updated successfully:
+```
+HTTPS/1.1 200 OK
+Content-Type: application/json
+```
+```json
+{
+	"orderID": "75",
+	"customerID": "sonic",
+	"modelID": "123456780",
+	"received": "2023-03-01 12:00:00",
+	"completed": false,
+	"scheduled": "2023-04-01 12:00:00",
+	"description": "Can't go faster than 50mph.",
+	"price": 400,
+	"paid": true,
+	"parts": [
+		{
+			"partID": "J7"
+			"quantity": 2
+		}
+	]
+}
+```
+
+If authorization fails:
+```
+HTTPS/1.1 401 Unauthorized
+content-type: application/json
+```
+```json
+{
+	"error": "Unauthorized."
+}
+```
 
 ```DELETE /order/:id```
-Deletes the order with the specified id.
+Deletes the order with the specified id. Requires employee authorization.
+
+<sub><sup>REQUEST</sup></sub>
+```
+DELETE /order/75
+```
+
+<sub><sup>RESPONSE</sup></sub>
+
+```
+HTTPS/1.1 200 OK
+```
+
+If authorization fails:
+```
+HTTPS/1.1 401 Unauthorized
+content-type: application/json
+```
+```json
+{
+	"error": "Unauthorized."
+}
+```
 
 ### Employees
 Retreives all employee data.
