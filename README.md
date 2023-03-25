@@ -167,8 +167,8 @@ content-type: application/json
 }
 ```
 
-```PUT /order/:id```
-Updates the order with the specified id. Requires employee authorization.
+```PUT /order/```
+Updates an order. Requires employee authorization.
 
 <sub><sup>REQUEST</sup></sub>
 ```
@@ -261,7 +261,53 @@ content-type: application/json
 Retreives all employee data.
 
 ```GET /employees```
-Returns a list of all employees.
+Returns a list of all employees. Requires manager authorization.
+
+<sub><sup>REQUEST</sup></sub>
+```
+GET /employees
+```
+
+<sub><sup>RESPONSE</sup></sub>
+```
+HTTPS/1.1 200 OK
+Content-Type: application/json
+```
+```json
+{
+	"employees": [
+		{
+			"employeeID": "casperg",
+			"firstName": "Casper",
+			"lastName": "The Friendly Ghost",
+			"email": "casper.g@autocentre.com",
+		},
+		{
+			"employeeID": "mario",
+			"firstName": "Mario",
+			"lastName": "Mario",
+			"email": "mm@autocentre.com",
+		},
+		{
+			"employeeID": "luigi",
+			"firstName": "Luigi",
+			"lastName": "Mario",
+			"email": "lm@autocentre.com",
+		}
+	]
+}
+```
+
+If authorization fails:
+```
+HTTPS/1.1 401 Unauthorized
+content-type: application/json
+```
+```json
+{
+	"error": "Unauthorized."
+}
+```
 
 ### Employee
 Endpoints related to manipulating data & schedule of a specific employee.
@@ -269,23 +315,201 @@ Endpoints related to manipulating data & schedule of a specific employee.
 ```GET /employee/:id```
 Returns the employee with the specified id.
 
-```POST /employee```
-Creates a new employee.
+<sub><sup>REQUEST</sup></sub>
+```
+GET /employee/casperg
+```
 
-```PUT /employee/:id```
-Updates the employee data or schedule with the specified id.
+<sub><sup>RESPONSE</sup></sub>
+
+If employee exists:
+```
+HTTPS/1.1 200 OK
+Content-Type: application/json
+```
+```json
+{
+	"employeeID": "casperg",
+	"firstName": "Casper",
+	"lastName": "The Friendly Ghost",
+	"email": "casper.g@autocentre.com",
+	"assigned": [ "75", "76" ],
+}
+```
+
+If order does not exist:
+
+```
+HTTPS/1.1 404 Not Found
+content-type: application/json
+```
+```json
+{
+	"error": "Employee not found."
+}
+```
+
+```POST /employee```
+Creates a new employee. Requires manager authorization.
+
+<sub><sup>REQUEST</sup></sub>
+```
+POST /employee
+```
+```json
+{
+	"employeeID": "scoob",
+	"firstName": "Scooby",
+	"lastName": "Doo",
+	"email": "scoobydoobydoo@autocentre.com",
+	"assigned": []
+}
+```
+
+<sub><sup>RESPONSE</sup></sub>
+
+if employee is created successfully:
+```json
+{
+	"employeeID": "scoob",
+	"firstName": "Scooby",
+	"lastName": "Doo",
+	"email": "scoobydoobydoo@autocentre.com",
+	"assigned": []
+}
+```
+
+If authorization fails:
+```
+HTTPS/1.1 401 Unauthorized
+content-type: application/json
+```
+
+```json
+{
+	"error": "Unauthorized."
+}
+```
+
+```PUT /employee/```
+Updates the employee data or schedule with the specified id. Requires manager authorization.
+
+<sub><sup>REQUEST</sup></sub>
+I
+```
+PUT /employee/
+```
+```json
+{
+	"employeeID": "casperg",
+	"firstName": "Casper",
+	"lastName": "The Friendly Ghost",
+	"email": "casperg@autocentre.com",
+	"assigned": [],
+}
+```
+
+<sub><sup>RESPONSE</sup></sub>
+If employee is updated successfully:
+```
+HTTPS/1.1 200 OK
+Content-Type: application/json
+```
+
+```json
+{
+	"employeeID": "casperg",
+	"firstName": "Casper",
+	"lastName": "The Friendly Ghost",
+	"email": "casperg@autocentre.com",
+	"assigned": [],
+}
+```
+
+If authorization fails:
+```
+HTTPS/1.1 401 Unauthorized
+content-type: application/json
+```
+```json
+{
+	"error": "Unauthorized."
+}
+```
 
 ```DELETE /employee/:id```
-Deletes the employee with the specified id.
+Deletes the employee with the specified id. Requires manager authorization.
+
+<sub><sup>REQUEST</sup></sub>
+```
+DELETE /employee/casperg
+```
+
+<sub><sup>RESPONSE</sup></sub>
+
+```
+HTTPS/1.1 200 OK
+```
+
 
 ### Parts
 To perform operations on all car parts in the inventory.
 
 ```GET /parts```
-Returns a list of all parts in inventory.
+Returns a list of all parts in inventory. Requires employee level authorization.
+
+<sub><sup>REQUEST</sup></sub>
+```
+GET /parts
+```
+
+<sub><sup>RESPONSE</sup></sub>
+```
+HTTPS/1.1 200 OK
+Content-Type: application/json
+```
+
+```json
+{
+	"parts": [
+		{
+			"partID": "xsred657rt8",
+			"description": "Yoke steering",
+			"quantity": 20
+		},
+		{
+			"partID": "tge5t33t4wef",
+			"description": "Brake pads",
+			"quantity": 10
+		}
+	]
+}
+```
 
 ```DELETE /parts```
-Empties the entire inventory.
+Empties the entire inventory. Requires manager authorization.
+
+<sub><sup>REQUEST</sup></sub>
+```
+DELETE /parts
+```
+
+<sub><sup>RESPONSE</sup></sub>
+
+```
+HTTPS/1.1 200 OK
+```
+
+If authorization fails:
+```
+HTTPS/1.1 401 Unauthorized
+content-type: application/json
+```
+```json
+{
+	"error": "Unauthorized."
+}
+```
 
 ### Part
 To perform operations on a specific car part.
@@ -293,26 +517,113 @@ To perform operations on a specific car part.
 ```GET /parts/:id```
 Returns the part with the specified id.
 
+<sub><sup>REQUEST</sup></sub>
+```
+GET /parts/xsred657rt8
+```
+
+```json
+{
+	"partID": "xsred657rt8",
+	"description": "Yoke steering",
+	"quantity": 20
+}
+```
+
+If part does not exist:
+
+```
+HTTPS/1.1 404 Not Found
+content-type: application/json
+```
+```json
+{
+	"error": "Part not found."
+}
+```
+
 ```POST /parts```
-Creates a new part.
+Creates a new part. Requires employee authorization.
+
+<sub><sup>REQUEST</sup></sub>
+
+```
+POST /parts
+```
+```json
+{
+	"partID": "xsred657rt8",
+	"description": "Yoke steering",
+	"quantity": 19
+}
+```
+
+<sub><sup>RESPONSE</sup></sub>
+
+if part is created successfully:
+```json
+{
+	"partID": "xsred657rt8",
+	"description": "Yoke steering",
+	"quantity": 19
+}
+```
+
+If authorization fails:
+```json
+{
+	"error": "Unauthorized."
+}
+```
 
 ```PUT /parts/:id```
-Updates the part with the specified id.
+Updates the part with the specified id. Requires employee authorization.
+
+<sub><sup>REQUEST</sup></sub>
+```
+PUT /parts/xsred657rt8
+```
+
+```json
+{
+	"partID": "xsred657rt8",
+	"description": "Yoke steering",
+	"quantity": 20
+}
+```
+
+<sub><sup>RESPONSE</sup></sub>
+If part is updated successfully:
+
+```json
+{
+	"partID": "xsred657rt8",
+	"description": "Yoke steering",
+	"quantity": 20
+}
+```
+
+If authorization fails:
+```
+HTTPS/1.1 401 Unauthorized
+content-type: application/json
+```
+```json
+{
+	"error": "Unauthorized."
+}
+```
 
 ```DELETE /parts/:id```
 Deletes the part with the specified id.
 
-### Machine
-To check status of a particular piece of heavy machinery or equiptment in the centre.
+<sub><sup>REQUEST</sup></sub>
+```
+DELETE /parts/xsred657rt8
+```
 
-```GET /machines/:id```
-Returns the machine with the specified id.
+<sub><sup>RESPONSE</sup></sub>
 
-```POST /machines```
-Creates a new machine.
-
-```PUT /machines/:id```
-Updates the machine with the specified id.
-
-```DELETE /machines/:id```
-Deletes the machine with the specified id.
+```
+HTTPS/1.1 200 OK
+```
