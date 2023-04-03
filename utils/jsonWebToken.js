@@ -35,7 +35,7 @@ export function verifyJWT(token, secret) {
 
 	if (
 		signatureJWT !== generateSignature(headerJWT, payloadJWT, secret) ||
-		payload.exp < Math.floor(Date.now() / 1000)
+		payloadJWT.exp < Math.floor(Date.now() / 1000)
 	)
 		return null
 
