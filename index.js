@@ -1,15 +1,16 @@
-import { createServer } from "http"
+import express from "express"
+import dotenv from "dotenv"
 
-const hostname = "0.0.0.0"
-const port = 3000
+import authRouter from "./routers/auth.js"
 
-const server = createServer((req, res) => {
-	res.statusCode = 200
-	res.setHeader("Content-Type", "text/plain")
-	res.end("Okay\n")
-})
+dotenv.config()
 
-// GET request on http://localhost:3000/
-server.listen(port, hostname, () => {
-	console.log(`Server running at http://${hostname}:${port}/`)
-})
+const app = express()
+app.use(express.json())
+
+const port = process.env.PORT || 3000
+
+app.get("/", (req, res) => res.send("Hello World!"))
+app.use("/api/auth", authRouter)
+
+app.listen(port, () => console.log("Server running on http://localhost:" + port + " ⚡"))
