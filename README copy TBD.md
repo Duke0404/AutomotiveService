@@ -26,6 +26,7 @@ POST /api/auth/login
 ```
 
 <sub><sup>RESPONSE</sup></sub>
+
 ```
 HTTPS/1.1 200 OK
 Content-Type: application/json
