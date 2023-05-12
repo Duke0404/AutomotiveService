@@ -1,6 +1,6 @@
 import oracledb from "oracledb"
 
-async function connection() {
+export default async function connection() {
 	try {
 		const connection = oracledb.getConnection({
 			user: "ddas",
@@ -15,5 +15,3 @@ async function connection() {
 		console.error(err)
 	}
 }
-
-export default connection

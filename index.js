@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 
 import authRouter from "./routers/authRouter.js"
+import ordersRouter from "./routers/ordersRouter.js"
 
 import connection from "./database/connection.js"
 
@@ -22,5 +23,6 @@ app.get("/test", async (_, res) => {
 	res.json(result.rows)
 })
 app.use("/api/auth", authRouter)
+app.use("/api/orders", ordersRouter)
 
 app.listen(port, () => console.log("Server running on http://localhost:" + port + " ⚡"))
