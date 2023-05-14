@@ -1,6 +1,9 @@
 import { Router } from "express"
 import authMiddleware from "../middleware/authMiddleware.js"
-import { getAllController } from "../controllers/ordersController.js"
+import {
+	getAllController,
+	getOneController
+} from "../controllers/ordersController.js"
 
 const ordersRouter = Router()
 
@@ -10,6 +13,11 @@ ordersRouter.get("/all/:limit?", authMiddleware, async (req, res) =>
 )
 
 // Get One order
-// ordersRouter.get("/:id", authMiddleware, async (req, res) => )
+ordersRouter.get("/:id", authMiddleware, async (req, res) =>
+	getOneController(req, res, +req.params.id)
+)
+
+// Create order
+// ordersRouter.post("/", authMiddleware, async (req, res) => createController(req, res))
 
 export default ordersRouter

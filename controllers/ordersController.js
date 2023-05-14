@@ -1,7 +1,8 @@
 import connection from "../database/connection.js"
-import { checkEmployee, getAllOrders } from "../database/ordersQueries.js"
+import checkAccess from "../database/accessQueries.js"
+import { getAllOrders, getOneOrder } from "../database/ordersQueries.js"
 
-const orderFormat = order => ({
+const orderFromArray = order => ({
 	orderId: order[0],
 	customerName: order[1],
 	employeeAssigned: order[2],
@@ -25,14 +26,14 @@ export async function getAllController(req, res, limit, open) {
 	try {
 		const conn = await connection()
 
-		const access = await checkEmployee(conn, user)
+		const access = await checkAccess(conn, user, true)
 		if (!access) return res.status(403).json({ error: "Forbidden" })
 
 		const orders = await getAllOrders(conn, limit, open)
 
 		const result = {
 			limit,
-			orders: orders.rows.map(order => orderFormat(order))
+			orders: orders.rows.map(order => orderFromArray(order))
 		}
 
 		res.json(result)
@@ -41,3 +42,39 @@ export async function getAllController(req, res, limit, open) {
 		res.status(500).json({ error: "Internal server error" })
 	}
 }
+
+export async function getOneController(req, res, id) {
+	const user = req.user
+
+	try {
+		const conn = await connection()
+
+		const access =
+			(await checkAccess(conn, user, true)) || (await checkAccess(conn, user, false))
+		if (!access) return res.status(403).json({ error: "Forbidden" })
+
+		const order = await getOneOrder(conn, id)
+
+		if (!order) return res.status(404).json({ error: "Order not found" })
+
+		res.json(orderFromArray(order.rows[0]))
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({ error: "Internal server error" })
+	}
+}
+
+// export async function createController(req, res) {
+// 	const user = req.user
+// 	const { customerId, vehicleId, description, price, paid } = req.body
+
+// 	try {
+// 		const conn = await connection()
+
+// 		const access = await checkAccess(conn, user, true)
+// 		if (!access) return res.status(403).json({ error: "Forbidden" })
+// 	} catch (error) {
+// 		console.log(error)
+// 		res.status(500).json({ error: "Internal server error" })
+// 	}
+// }

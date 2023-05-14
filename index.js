@@ -3,8 +3,9 @@ import dotenv from "dotenv"
 
 import authRouter from "./routers/authRouter.js"
 import ordersRouter from "./routers/ordersRouter.js"
-
-import connection from "./database/connection.js"
+import teamRouter from "./routers/teamRouter.js"
+import vehicleClassRouter from "./routers/vehicleClassRouter.js"
+import manufacturerRouter from "./routers/manufacturerRouter.js"
 
 dotenv.config()
 
@@ -15,14 +16,10 @@ const port = process.env.PORT || 3000
 
 app.get("/", (_, res) => res.send("Hello World!"))
 
-app.get("/test", async (_, res) => {
-	const conn = await connection()
-	const result = await conn.execute(
-		"SELECT * FROM CUSTOMER"
-	)
-	res.json(result.rows)
-})
-app.use("/api/auth", authRouter)
-app.use("/api/orders", ordersRouter)
+app.use("/auth", authRouter)
+app.use("/order", ordersRouter)
+app.use("/team", teamRouter)
+app.use("/vehicle-class", vehicleClassRouter)
+app.use("/manufacturer", manufacturerRouter)
 
 app.listen(port, () => console.log("Server running on http://localhost:" + port + " ⚡"))
