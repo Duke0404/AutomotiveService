@@ -163,7 +163,7 @@ export async function deleteController(req, res) {
 		if (!exists) return res.status(404).json({ error: "Not found" })
 
 		const manufacturer = await deleteManufacturer(conn, manufacturerId)
-		if (!manufacturer) return res.status(400).json({ error: "Bad request" })
+		if (!manufacturer) return res.status(500).json({ error: "Internal server error" })
 
 		const result = manufacturerFromArray(manufacturer.rows[0])
 

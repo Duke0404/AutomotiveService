@@ -9,16 +9,16 @@ import {
 
 const manufacturerRouter = Router()
 
-// Get all vehicle classes
+// Get all vemanufacturer
 manufacturerRouter.get("/all", authMiddleware, getAllController)
 
-// Create a new vehicle class
+// Create a new manufacturer
 manufacturerRouter.post("/", authMiddleware, createController)
 
-// Update a vehicle class
+// Update a manufacturer
 manufacturerRouter.put("/", authMiddleware, updateController)
 
-// Delete a vehicle class
+// Delete a manufacturer
 manufacturerRouter.delete("/", authMiddleware, deleteController)
 
 export default manufacturerRouter
