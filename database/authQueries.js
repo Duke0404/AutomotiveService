@@ -14,7 +14,7 @@ export async function registerCheck(conn, username) {
 // Create user for register
 export async function registerCreate(conn, details, employee) {
 	const query = employee
-		? "INSERT INTO EMPLOYEE (EMPLOYEE_USERNAME, EMPLOYEE_PASSWORD, EMPLOYEE_NAME, EMPLOYEE_EMAIL, EMPLOYEE_PHONE, TEAM_ID) VALUES (:1, :2, :3, :4, :5, :6)"
+		? "INSERT INTO EMPLOYEE (EMPLOYEE_USERNAME, EMPLOYEE_PASSWORD, EMPLOYEE_NAME, ROLE_LEVEL, EMAIL, PHONE, TEAM_TEAM_ID) VALUES (:1, :2, :3, 1, :4, :5, :6)"
 		: "INSERT INTO CUSTOMER (CUSTOMER_USERNAME, CUSTOMER_PASSWORD, CUSTOMER_NAME, CUSTOMER_ADDRESS) VALUES (:1, :2, :3, :4)"
 
 	const values = employee
@@ -24,7 +24,7 @@ export async function registerCreate(conn, details, employee) {
 				details.name,
 				details.email,
 				details.phone,
-				details.teamID
+				details.teamId
 		]
 		: [details.username, details.password, details.name, details.address]
 

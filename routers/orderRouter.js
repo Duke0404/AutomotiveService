@@ -2,8 +2,11 @@ import { Router } from "express"
 import authMiddleware from "../middleware/authMiddleware.js"
 import {
 	getAllController,
-	getOneController
-} from "../controllers/ordersController.js"
+	getOneController,
+	createController,
+	updateController,
+	deleteController,
+} from "../controllers/orderController.js"
 
 const ordersRouter = Router()
 
@@ -13,11 +16,17 @@ ordersRouter.get("/all/:limit?", authMiddleware, async (req, res) =>
 )
 
 // Get One order
-ordersRouter.get("/:id", authMiddleware, async (req, res) =>
-	getOneController(req, res, +req.params.id)
+ordersRouter.get("/:orderId", authMiddleware, async (req, res) =>
+	getOneController(req, res, +req.params.orderId)
 )
 
 // Create order
-// ordersRouter.post("/", authMiddleware, async (req, res) => createController(req, res))
+ordersRouter.post("/", authMiddleware, createController)
+
+// Update order
+ordersRouter.put("/:id", authMiddleware, updateController)
+
+// Delete order
+ordersRouter.delete("/:id", authMiddleware, deleteController)
 
 export default ordersRouter

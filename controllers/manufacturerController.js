@@ -2,6 +2,7 @@ import connection from "../database/connection.js"
 import checkAccess, { checkRoleClearance } from "../database/accessQueries.js"
 import {
 	getAllManufacturers,
+	getManufacturer,
 	checkManufacturerExists,
 	createManufacturer,
 	updateManufacturer,
@@ -43,6 +44,31 @@ export async function getAllController(req, res) {
 	}
 }
 
+export async function getOneController(req, res, manufacturerId) {
+	const user = req.user
+
+	if (!manufacturerId || typeof manufacturerId !== "number" || manufacturerId < 0)
+		return res.status(400).json({ error: "Bad request" })
+
+	try {
+		const conn = await connection()
+
+		const access = await checkAccess(conn, user, true)
+		if (!access) return res.status(401).json({ error: "Unauthorized" })
+
+		const roleClearance = await checkRoleClearance(conn, user, 1)
+		if (!roleClearance) return res.status(403).json({ error: "Forbidden" })
+
+		const manufacturer = await getManufacturer(conn, manufacturerId)
+		if (!manufacturer) return res.status(404).json({ error: "Not found" })
+
+		res.json(manufacturerFromArray(manufacturer.rows[0]))
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({ error: "Internal server error" })
+	}
+}
+
 export async function createController(req, res) {
 	const user = req.user
 	const { manufacturerName, manufacturerCountry, inBusiness } = req.body
@@ -64,7 +90,7 @@ export async function createController(req, res) {
 		const access = await checkAccess(conn, user, true)
 		if (!access) return res.status(401).json({ error: "Unauthorized" })
 
-		const roleClearance = await checkRoleClearance(conn, user, 1)
+		const roleClearance = await checkRoleClearance(conn, user, 2)
 		if (!roleClearance) return res.status(403).json({ error: "Forbidden" })
 
 		const exists = await checkManufacturerExists(conn, manufacturerName, false)
@@ -113,7 +139,7 @@ export async function updateController(req, res) {
 		const access = await checkAccess(conn, user, true)
 		if (!access) return res.status(401).json({ error: "Unauthorized" })
 
-		const roleClearance = await checkRoleClearance(conn, user, 3)
+		const roleClearance = await checkRoleClearance(conn, user, 2)
 		if (!roleClearance) return res.status(403).json({ error: "Forbidden" })
 
 		const exists = await checkManufacturerExists(conn, manufacturerId)
@@ -156,7 +182,7 @@ export async function deleteController(req, res) {
 		const access = await checkAccess(conn, user, true)
 		if (!access) return res.status(401).json({ error: "Unauthorized" })
 
-		const roleClearance = await checkRoleClearance(conn, user, 3)
+		const roleClearance = await checkRoleClearance(conn, user, 2)
 		if (!roleClearance) return res.status(403).json({ error: "Forbidden" })
 
 		const exists = await checkManufacturerExists(conn, manufacturerId)

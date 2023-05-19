@@ -2,6 +2,7 @@ import connection from "../database/connection.js"
 import checkAccess, { checkRoleClearance } from "../database/accessQueries.js"
 import {
 	getAllVehicles,
+	getVehicle,
 	checkVehicleExists,
 	createVehicle,
 	updateVehicle,
@@ -36,8 +37,34 @@ export async function getAllController(req, res) {
 			vehicles: vehicles.rows.map(vehicle => vehicleFromArray(vehicle))
 		}
 
-		console.log(result)
 		res.json(result)
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({ error: "Internal server error" })
+	}
+}
+
+export async function getOneController(req, res, vehicleId) {
+	const user = req.user
+
+	if (!vehicleId || typeof vehicleId !== "number" || vehicleId < 0)
+		return res.status(400).json({ error: "Bad request" })
+
+	try {
+		const conn = await connection()
+
+		const access = await checkAccess(conn, user, true)
+		if (!access) return res.status(401).json({ error: "Unauthorized" })
+
+		const roleClearance = await checkRoleClearance(conn, user, 1)
+		if (!roleClearance) return res.status(403).json({ error: "Forbidden" })
+
+		const exists = await checkVehicleExists(conn, vehicleId)
+		if (!exists) return res.status(404).json({ error: "Not Found" })
+
+		const vehicle = await getVehicle(conn, vehicleId)
+
+		res.json(vehicleFromArray(vehicle.rows[0]))
 	} catch (error) {
 		console.log(error)
 		res.status(500).json({ error: "Internal server error" })
@@ -90,7 +117,7 @@ export async function createController(req, res) {
 			manufacturerId
 		)
 
-		res.json(vehicleFromArray(vehicle.rows[0]))
+		res.status(201).json(vehicleFromArray(vehicle.rows[0]))
 	} catch (error) {
 		console.log(error)
 		res.status(500).json({ error: "Internal server error" })
@@ -172,7 +199,7 @@ export async function deleteController(req, res) {
 		const access = await checkAccess(conn, user, true)
 		if (!access) return res.status(401).json({ error: "Unauthorized" })
 
-		const roleClearance = await checkRoleClearance(conn, user, 1)
+		const roleClearance = await checkRoleClearance(conn, user, 2)
 		if (!roleClearance) return res.status(403).json({ error: "Forbidden" })
 
 		const exists = await checkVehicleExists(conn, vehicleId)
