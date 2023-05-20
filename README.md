@@ -4,7 +4,41 @@ Serves as Backend for an API for an auto repair & servicing shop. Provides data 
 
 ## Endpoints
 
--[Authentication](#authentication) -[Login](#login) -[Register](#register) -[Orders](#orders) -[Get Orders](#get-orders) -[Get Order](#get-order) -[Create Order](#create-order) -[Update Order](#update-order) -[Delete Order](#delete-order)
+-[Authentication](#authentication)
+	-[Login](#login)
+	-[Register](#register)
+	-[Employee Login](#Employee Login)
+	-[Employee Add](#Employee Add)
+-[Profile](#profile)
+	-[Get Profile](#Get Profile)
+	-[Update Profile](#Update Profile)
+-[Customer](#customer)
+	-[Get All Customer](#Get Customers)
+	-[Get Customer](#Get Customer)
+-[Employee](#employee)
+	-[Get All Employees](#Get Employees)
+	-[Get Employee](#Get Employee)
+	-[Update Employee](#Update Employee)
+	-[Delete Employee](#Delete Employee)
+-[Order](#order)
+	-[Get All Orders](#Get Orders)
+	-[Get My Orders](#Get My Orders)
+	-[Get Order](#Get Order)
+	-[Create Order](#Create Order)
+	-[Update Order](#Update Order)
+	-[Delete Order](#Delete Order)
+-[Vehicle](#vehicle)
+	-[Get All Vehicles](#Get Vehicles)
+	-[Get Vehicle](#Get Vehicle)
+	-[Create Vehicle](#Create Vehicle)
+	-[Update Vehicle](#Update Vehicle)
+	-[Delete Vehicle](#Delete Vehicle)
+-[Team](#team)
+	-[Get All Teams](#Get Teams)
+	-[Get Team](#Get Team)
+	-[Create Team](#Create Team)
+	-[Update Team](#Update Team)
+	-[Delete Team](#Delete Team)
 
 ## Authentication
 
@@ -13,12 +47,12 @@ Serves as Backend for an API for an auto repair & servicing shop. Provides data 
 Logs in a customer and returns a JWT token.
 
 <details>
-<summary>POST /auth/login</summary>
+<summary>POST /login</summary>
 
 > <sub><sup>REQUEST</sup></sub>
 >
 > ```
-> POST /auth/login
+> POST /login
 > ```
 >
 > ```json
@@ -37,18 +71,19 @@ Logs in a customer and returns a JWT token.
 > 	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIwIjoiMSIsIjEiOiIyIiwiMiI6IjMiLCIzIjoiNCIsImV4cCI6MTY4NDU0MDU0NH0.PX_MZScjS-F2r7pDFmvsRv44oasis-5ct8IdXVOpkfI"
 > }
 > ```
+</details>
 
 ### Register
 
 Registers a customer and returns a JWT token.
 
 <details>
-<summary>POST /auth/register</summary>
+<summary>POST /register</summary>
 
 > <sub><sup>REQUEST</sup></sub>
 >
 > ```
-> POST /auth/register
+> POST /register
 > ```
 >
 > ```json
@@ -72,18 +107,19 @@ Registers a customer and returns a JWT token.
 > 	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIwIjoiMSIsIjEiOiIyIiwiMiI6IjMiLCIzIjoiNCIsIjQiOiI1IiwiZXhwIjoxNjg0NTQ2NjExfQ.0sGtBixKgFt84g1ywUpqLHbxFSTgWijMPWyooVesWHg"
 > }
 > ```
+</details>
 
 ### Employee Login
 
 Logs in an employee and returns a JWT token.
 
 <details>
-<summary>POST /auth/employee/login</summary>
+<summary>POST /employee/login</summary>
 
 > <sub><sup>REQUEST</sup></sub>
 >
 > ```
-> POST /auth/employee/login
+> POST /employee/login
 > ```
 >
 > ```json
@@ -105,13 +141,14 @@ Logs in an employee and returns a JWT token.
 > 	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIwIjoiZCIsIjEiOiJlIiwiMiI6InYiLCIzIjoiLiIsIjQiOiJkIiwiNSI6ImEiLCI2IjoicyIsImV4cCI6MTY4NDU0Njg3MX0.GJlV96RgZ-p0c_jEWctRjr0ygOVrOnLOukeItEs-0R8"
 > }
 > ```
+</details>
 
 ### Employee Add
 
 Registers a new employee and returns a JWT token.
 
 <details>
-<summary>POST /auth/employee/add/</summary>
+<summary>POST /employee/add/</summary>
 
 Access: `Employee Lvl 2`
 
@@ -120,7 +157,7 @@ Access: `Employee Lvl 2`
 > Requires JWT in `authorization` header
 >
 > ```
-> POST /auth/employee/add
+> POST /employee/add
 > ```
 >
 > ```json
@@ -145,10 +182,357 @@ Access: `Employee Lvl 2`
 > ```json
 > {
 > 	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIwIjoiMSIsIjEiOiIyIiwiMiI6IjMiLCIzIjoiNCIsIjQiOiI1IiwiNSI6IjYiLCJleHAiOjE2ODQ1NDkwMzl9.NlTaWLtZDFMKgYbmvXkDLgcUSYIOQ23o2v-QKkekI40"
+> }Customer
+> ```
+</details>
+
+## Profile
+
+### Get Profile
+
+Get the details of my profile.
+
+<details>
+<summary>GET /profile/</summary>
+
+Access: `Customer`
+
+> <sub><sup>REQUEST</sup></sub>
+>
+> Requires JWT in `authorization` header
+>
+> ```
+> GET /profile/
+> ```
+>
+> <sub><sup>RESPONSE</sup></sub>
+>
+> ```
+> HTTPS/1.1 200 OK
+> Content-Type: application/json
+> ```
+>
+> ```json
+> { "name": "Devansh Das", "address": null, "username": "duke" }
+> ```
+</details>
+
+### Update Profile
+
+Update the details of my profile.
+
+<details>
+<summary>PATCH /profile/</summary>
+
+Access: `Customer`
+
+> <sub><sup>REQUEST</sup></sub>
+>
+> Requires JWT in `authorization` header
+>
+> ```
+> PATCH /profile/
+> ```
+>
+> ```json
+> {
+> 	"name": "Devansh Das",
+> 	"address": "Warsaw"
 > }
 > ```
+>
+> <sub><sup>RESPONSE</sup></sub>
+>
+> ```
+> HTTPS/1.1 200 OK
+> Content-Type: application/json
+> ```
+>
+> ```json
+> { "name": "Devansh Das", "address": "Warsaw", "username": "duke" }
+> ```
+</details>
 
-## Orders
+## Customer
+
+### Get Customers
+
+Get a list of all customers.
+
+<details>
+<summary>GET /customer/all</summary>
+
+Access: `Employee Lvl 1`
+
+> <sub><sup>REQUEST</sup></sub>
+>
+> Requires JWT in `authorization` header
+>
+> ```
+> GET /customer/all
+> ```
+>
+> <sub><sup>RESPONSE</sup></sub>
+>
+> ```
+> HTTPS/1.1 200 OK
+> Content-Type: application/json
+> ```
+>
+> ```json
+> {
+> 	"count": 2,
+> 	"customers": [
+> 		{
+> 			"customerId": 2,
+> 			"customerName": "Sanjay Das",
+> 			"customerAddress": "Ghaziabad",
+> 			"customerUsername": "sanjaydas"
+> 		},
+> 		{
+> 			"customerId": 32,
+> 			"customerName": "1234",
+> 			"customerAddress": null,
+> 			"customerUsername": "1234"
+> 		}
+> 	]
+> }
+> ```
+</details>
+
+### Get Customer
+
+Get the details of a specific customer.
+
+<details>
+<summary>GET /customer/:customerId</summary>
+
+Access: `Employee Lvl 1`
+
+| Parameter    | Type | Required | Default | Description                   |
+| ------------ | ---- | -------- | ------- | ----------------------------- |
+| `customerId` | int  | ✔️       |         | The customer ID to be fetched |
+
+> <sub><sup>REQUEST</sup></sub>
+>
+> Requires JWT in `authorization` header
+>
+> ```
+> GET /customer/1
+> ```
+>
+> <sub><sup>RESPONSE</sup></sub>
+>
+> ```
+> HTTPS/1.1 200 OK
+> Content-Type: application/json
+> ```
+>
+> ```json
+> {
+> 	"customerId": 1,
+> 	"customerName": "Devansh Das",
+> 	"customerAddress": null,
+> 	"customerUsername": "duke"
+> }
+> ```
+</details>
+
+## Employee
+
+### Get Employees
+
+Get a list of all employees.
+
+<details>
+<summary>GET /employee/all</summary>
+
+Access: `Employee Lvl 1`
+
+> <sub><sup>REQUEST</sup></sub>
+>
+> Requires JWT in `authorization` header
+>
+> ```
+> GET /employee/all
+> ```
+>
+> <sub><sup>RESPONSE</sup></sub>
+>
+> ```
+> HTTPS/1.1 200 OK
+> Content-Type: application/json
+> ```
+>
+> ```json
+> {
+> 	"count": 3,
+>     "employees": [
+>             "employeeId": 24,
+>             "employeeName": "Goofy",
+>             "roleLevel": 1,
+>             "email": "goofy@auto.com",
+>             "phone": 3435456677,
+>             "employeeUsername": "goofy",
+>             "teamName": "Cleaning Crew 1"
+>         },
+>         {
+>             "employeeId": 42,
+>             "employeeName": "Ansh Chaudhary",
+>             "roleLevel": 2,
+>             "email": "ansh@auto.com",
+>             "phone": 6666666666,
+>             "employeeUsername": "sage",
+>             "teamName": "Top"
+>         },
+>         {
+>             "employeeId": 64,
+>             "employeeName": "Test",
+>             "roleLevel": 1,
+>             "email": "12345@auto.com",
+>             "phone": 12345678,
+>             "employeeUsername": "123456",
+>             "teamName": "Top"
+>         }
+>     ]
+> }
+> ```
+</details>
+
+### Get Employee
+
+Get the details of a specific employee.
+
+<details>
+<summary>GET /employee/:employeeId</summary>
+
+Access: `Employee Lvl 1`
+
+| Parameter    | Type | Required | Default | Description                   |
+| ------------ | ---- | -------- | ------- | ----------------------------- |
+| `employeeId` | int  | ✔️       |         | The employee ID to be fetched |
+
+> <sub><sup>REQUEST</sup></sub>
+>
+> Requires JWT in `authorization` header
+>
+> ```
+> GET /employee/24
+> ```
+>
+> <sub><sup>RESPONSE</sup></sub>
+>
+> ```
+> HTTPS/1.1 200 OK
+> Content-Type: application/json
+> ```
+>
+> ```json
+> {
+> 	"employeeId": 24,
+> 	"employeeName": "Goofy",
+> 	"roleLevel": 1,
+> 	"email": "goofy@auto.com",
+> 	"phone": 3435456677,
+> 	"employeeUsername": "goofy",
+> 	"teamName": "Cleaning Crew 1"
+> }
+> ```
+</details>
+
+### Update Employee
+
+Update an employee details.
+
+<details>
+<summary>PATCH /employee</summary>
+
+Access: `Employee Lvl 2`
+
+> <sub><sup>REQUEST</sup></sub>
+>
+> Requires JWT in `authorization` header
+>
+> ```
+> PATCH /vehicle/
+> ```
+>
+> ```json
+> {
+> 	"employeeId": 24,
+> 	"employeeName": "Goofy",
+> 	"roleLevel": 1,
+> 	"email": "goofy.ah@auto.com",
+> 	"phone": 3435456677,
+> 	"employeeUsername": "goofy",
+> 	"teamId": 2
+> }
+> ```
+>
+> <sub><sup>RESPONSE</sup></sub>
+>
+> ```
+> HTTPS/1.1 200 OK
+> Content-Type: application/json
+> ```
+>
+> ```json
+> {
+> 	"employeeId": 24,
+> 	"employeeName": "Goofy",
+> 	"roleLevel": 1,
+> 	"email": "goofy.ah@auto.com",
+> 	"phone": 3435456677,
+> 	"employeeUsername": "goofy",
+> 	"teamName": "Cleaning Crew 1"
+> }
+> ```
+</details>
+
+### Delete Employee
+
+Delete an employee.
+
+<details>
+<summary>DELETE /employee/</summary>
+
+Access: `Employee Lvl 2`
+
+> <sub><sup>REQUEST</sup></sub>
+>
+> Requires JWT in `authorization` header
+>
+> ```
+> DELETE /employee/
+> ```
+>
+> ```json
+> {
+> 	"employeeId": 24
+> }
+> ```
+>
+> <sub><sup>RESPONSE</sup></sub>
+>
+> ```
+> HTTPS/1.1 200 OK
+> Content-Type: application/json
+> ```
+>
+> ```json
+> {
+> 	"employeeId": 24,
+> 	"employeeName": "Goofy",
+> 	"roleLevel": 1,
+> 	"email": "goofy.ah@auto.com",
+> 	"phone": 3435456677,
+> 	"employeeUsername": "goofy",
+> 	"teamName": "Cleaning Crew 1"
+> }
+> ```
+</details>
+
+## Order
 
 ### Get Orders
 
@@ -181,7 +565,8 @@ Access: `Employee Lvl 1`
 >
 > ```json
 > {
-> 	"limit": 2,
+> 	"limit": 10,
+> 	"count": 2,
 > 	"orders": [
 > 		{
 > 			"orderId": 2,
@@ -212,6 +597,66 @@ Access: `Employee Lvl 1`
 > 	]
 > }
 > ```
+</details>
+
+### Get My Orders
+
+Get the details of all orders from logged in customer
+
+<details>
+<summary>GET /order/my</summary>
+
+Access: `Customer`
+
+> <sub><sup>REQUEST</sup></sub>
+>
+> Requires JWT in `authorization` header
+>
+> ```
+> GET /order/my
+> ```
+>
+> <sub><sup>RESPONSE</sup></sub>
+>
+> ```
+> HTTPS/1.1 200 OK
+> Content-Type: application/json
+> ```
+>
+> ```json
+> {
+> 	"count": 2,
+> 	"orders": [
+> 		{
+> 			"orderId": 21,
+> 			"numberPlate": "WA4567E",
+> 			"orderDate": "2023-01-01T16:49:56.000Z",
+> 			"orderOpen": false,
+> 			"completionDate": "2023-01-26T16:50:14.000Z",
+> 			"description": "Exterior Cleaning",
+> 			"price": 500,
+> 			"paid": true,
+> 			"customerName": "Devansh Das",
+> 			"employeeName": "Donald Duck",
+> 			"vehicleName": "Mustang GT5.0"
+> 		},
+> 		{
+> 			"orderId": 1,
+> 			"numberPlate": "WA4567E",
+> 			"orderDate": "2023-05-07T18:52:04.000Z",
+> 			"orderOpen": true,
+> 			"completionDate": "2023-07-03T18:52:15.000Z",
+> 			"description": "Repainting",
+> 			"price": 2000,
+> 			"paid": true,
+> 			"customerName": "Devansh Das",
+> 			"employeeName": "Devansh Das",
+> 			"vehicleName": "Mustang GT5.0"
+> 		}
+> 	]
+> }
+> ```
+</details>
 
 ### Get Order
 
@@ -256,6 +701,7 @@ Access: `Employee Lvl 1`
 > 	"vehicleName": "Figo 1st Gen"
 > }
 > ```
+</details>
 
 ### Create Order
 
@@ -264,7 +710,7 @@ Create a new order.
 <details>
 <summary>POST /order/</summary>
 
-Access: `Employee Lvl 2`
+Access: `Employee Lvl 1`
 
 > <sub><sup>REQUEST</sup></sub>
 >
@@ -275,7 +721,75 @@ Access: `Employee Lvl 2`
 > ```
 >
 > ```json
+> {
+> 	"numberPlate": "WA4567E",
+> 	"orderDate": "2023-02-01",
+> 	"orderOpen": true,
+> 	"completionDate": "2023-05-26",
+> 	"description": "Wheel Alignment",
+> 	"price": 2000,
+> 	"paid": true,
+> 	"customerId": 1,
+> 	"employeeId": 1,
+> 	"vehicleId": 1
+> }
+> ```
 >
+> <sub><sup>RESPONSE</sup></sub>
+>
+> ```
+> HTTPS/1.1 201 OK
+> Content-Type: application/json
+> ```
+>
+> ```json
+> {
+> 	"orderId": 41,
+> 	"numberPlate": "WA4567E",
+> 	"orderDate": "2023-02-01T00:00:00.000Z",
+> 	"orderOpen": true,
+> 	"completionDate": "2023-05-26T00:00:00.000Z",
+> 	"description": "Wheel Alignment",
+> 	"price": 2000,
+> 	"paid": true,
+> 	"customerName": "Devansh Das",
+> 	"employeeName": "Devansh Das",
+> 	"vehicleName": "Mustang GT5.0"
+> }
+> ```
+</details>
+
+### Update Order
+
+Update a order.
+
+<details>
+<summary>PUT /order</summary>
+
+Access: `Employee Lvl 1`
+
+> <sub><sup>REQUEST</sup></sub>
+>
+> Requires JWT in `authorization` header
+>
+> ```
+> PUT /order
+> ```
+>
+> ```json
+> {
+> 	"orderId": 41,
+> 	"numberPlate": "WA4567E",
+> 	"orderDate": "2023-02-01",
+> 	"orderOpen": true,
+> 	"completionDate": "2023-05-26",
+> 	"description": "Wheel Alignment & adjustments",
+> 	"price": 2000,
+> 	"paid": true,
+> 	"customerId": 1,
+> 	"employeeId": 1,
+> 	"vehicleId": 1
+> }
 > ```
 >
 > <sub><sup>RESPONSE</sup></sub>
@@ -287,39 +801,67 @@ Access: `Employee Lvl 2`
 >
 > ```json
 > {
-> 	"limit": 2,
-> 	"orders": [
-> 		{
-> 			"orderId": 2,
-> 			"customerName": "HR23U35",
-> 			"employeeAssigned": "2023-05-01T10:45:44.000Z",
-> 			"employeeEmail": "0",
-> 			"numberPlate": "2023-05-31T10:45:55.000Z",
-> 			"vehicleManufacturer": "Interior Cleaning",
-> 			"vehicleModel": 500,
-> 			"vehicleType": "0",
-> 			"vehicleYear": "Sanjay Das",
-> 			"orderDate": "Donald Duck",
-> 			"orderOpen": true,
-> 			"orderPaid": true
-> 		},
-> 		{
-> 			"orderId": 1,
-> 			"customerName": "WA4567E",
-> 			"employeeAssigned": "2023-05-07T18:52:04.000Z",
-> 			"employeeEmail": "0",
-> 			"numberPlate": "2023-07-03T18:52:15.000Z",
-> 			"vehicleManufacturer": "Repainting",
-> 			"vehicleModel": 2000,
-> 			"vehicleType": "1",
-> 			"vehicleYear": "Devansh Das",
-> 			"orderDate": "Devansh Das",
-> 			"orderOpen": true,
-> 			"orderPaid": true
-> 		}
-> 	]
+> 	"orderId": 41,
+> 	"numberPlate": "WA4567E",
+> 	"orderDate": "2023-02-01T00:00:00.000Z",
+> 	"orderOpen": true,
+> 	"completionDate": "2023-05-26T00:00:00.000Z",
+> 	"description": "Wheel Alignment & adjustments",
+> 	"price": 2000,
+> 	"paid": true,
+> 	"customerName": "Devansh Das",
+> 	"employeeName": "Devansh Das",
+> 	"vehicleName": "Mustang GT5.0"
 > }
 > ```
+</details>
+
+### Delete Order
+
+Delete a order.
+
+<details>
+<summary>DELETE /order</summary>
+
+Access: `Employee Lvl 1`
+
+> <sub><sup>REQUEST</sup></sub>
+>
+> Requires JWT in `authorization` header
+>
+> ```
+> DELETE /order
+> ```
+>
+> ```json
+> {
+> 	"orderId": 41
+> }
+> ```
+>
+> <sub><sup>RESPONSE</sup></sub>
+>
+> ```
+> HTTPS/1.1 200 OK
+> Content-Type: application/json
+> ```
+>
+> ```json
+> {
+> 	"orderId": 41,
+> 	"numberPlate": "WA4567E",
+> 	"orderDate": "2023-02-01T00:00:00.000Z",
+> 	"orderOpen": true,
+> 	"completionDate": "2023-05-26T00:00:00.000Z",
+> 	"description": "Wheel Alignment & adjustments",
+> 	"price": 2000,
+> 	"paid": true,
+> 	"customerName": "Devansh Das",
+> 	"employeeName": "Devansh Das",
+> 	"vehicleName": "Mustang GT5.0"
+> }
+> ```
+</details>
 
 ## Vehicle
 
@@ -375,6 +917,7 @@ Access: `Employee Lvl 1`
 > 	]
 > }
 > ```
+</details>
 
 ### Get Vehicle
 
@@ -413,6 +956,7 @@ Access: `Employee Lvl 1`
 > 	"manufacturerName": "Tesla"
 > }
 > ```
+</details>
 
 ### Create Vehicle
 
@@ -456,6 +1000,7 @@ Access: `Employee Lvl 1`
 > 	"manufacturerName": "Tesla"
 > }
 > ```
+</details>
 
 ### Update Vehicle
 
@@ -500,6 +1045,7 @@ Access: `Employee Lvl 1`
 > 	"manufacturerName": "Tesla"
 > }
 > ```
+</details>
 
 ### Delete Vehicle
 
@@ -540,6 +1086,7 @@ Access: `Employee Lvl 2`
 > 	"manufacturerName": "Tesla"
 > }
 > ```
+</details>
 
 ## Manufacturer
 
@@ -598,6 +1145,7 @@ Access: `Employee Lvl 1`
 > 	]
 > }
 > ```
+</details>
 
 ### Get Manufacturer
 
@@ -635,6 +1183,7 @@ Access: `Employee Lvl 1`
 > 	"inBusiness": true
 > }
 > ```
+</details>
 
 ### Create Manufacturer
 
@@ -676,6 +1225,7 @@ Access: `Employee Lvl 2`
 > 	"inBusiness": true
 > }
 > ```
+</details>
 
 ### Update Manufacturer
 
@@ -718,6 +1268,7 @@ Access: `Employee Lvl 2`
 > 	"inBusiness": false
 > }
 > ```
+</details>
 
 ### Delete Manufacturer
 
@@ -757,6 +1308,7 @@ Access: `Employee Lvl 2`
 > 	"inBusiness": false
 > }
 > ```
+</details>
 
 ## Vehicle Class
 
@@ -821,6 +1373,7 @@ Access: `Employee Lvl 1`
 > 	]
 > }
 > ```
+</details>
 
 ### Get Vehicle Class
 
@@ -857,6 +1410,7 @@ Access: `Employee Lvl 1`
 > 	"typeDescription": "Rear door that swings upward to provide access to the main interior of the car as a cargo area."
 > }
 > ```
+</details>
 
 ### Create Vehicle Class
 
@@ -896,6 +1450,7 @@ Access: `Employee Lvl 2`
 > 	"typeDescription": "Large vehicle designed to transport cargo & carry specialized payloads."
 > }
 > ```
+</details>
 
 ### Update Vehicle Class
 
@@ -936,6 +1491,7 @@ Access: `Employee Lvl 2`
 > 	"typeDescription": "Large vehicle designed to transport cargo."
 > }
 > ```
+</details>
 
 ### Delete Vehicle Class
 
@@ -974,6 +1530,7 @@ Access: `Employee Lvl 2`
 > 	"typeDescription": "Large vehicle designed to transport cargo."
 > }
 > ```
+</details>
 
 ## Team
 
@@ -983,7 +1540,6 @@ Get a list of all Teams.
 
 <details>
 <summary>GET /team/all</summary>
-
 
 Access: `Employee Lvl 1`
 
@@ -1003,8 +1559,26 @@ Access: `Employee Lvl 1`
 > ```
 >
 > ```json
-> {"count":3,"teams":[{"teamId":1,"teamName":"Top","teamLeader":"Devansh Das","purpose":"Supervision"},{"teamId":3,"teamName":"Cleaning Crew 3","teamLeader":"Devansh Das","purpose":"Parts deep cleaning"},{"teamId":2,"teamName":"Cleaning Crew 1","teamLeader":"Donald Duck","purpose":"Interior & exterior cleaning"}]}
+> {
+> 	"count": 3,
+> 	"teams": [
+> 		{ "teamId": 1, "teamName": "Top", "teamLeader": "Devansh Das", "purpose": "Supervision" },
+> 		{
+> 			"teamId": 3,
+> 			"teamName": "Cleaning Crew 3",
+> 			"teamLeader": "Devansh Das",
+> 			"purpose": "Parts deep cleaning"
+> 		},
+> 		{
+> 			"teamId": 2,
+> 			"teamName": "Cleaning Crew 1",
+> 			"teamLeader": "Donald Duck",
+> 			"purpose": "Interior & exterior cleaning"
+> 		}
+> 	]
+> }
 > ```
+</details>
 
 ### Create Team
 
@@ -1012,7 +1586,6 @@ Create a team.
 
 <details>
 <summary>POST /team/</summary>
-
 
 Access: `Employee Lvl 3`
 
@@ -1026,10 +1599,10 @@ Access: `Employee Lvl 3`
 >
 > ```json
 > {
->     "teamId": 400,
->     "teamName": "HR",
->     "teamLeaderId": 1,
->     "purpose": "Hiring"
+> 	"teamId": 400,
+> 	"teamName": "HR",
+> 	"teamLeaderId": 1,
+> 	"purpose": "Hiring"
 > }
 > ```
 >
@@ -1042,12 +1615,13 @@ Access: `Employee Lvl 3`
 >
 > ```json
 > {
->     "teamId": 400,
->     "teamName": "HR",
->     "teamLeaderId": 1,
->     "purpose": "Hiring"
+> 	"teamId": 400,
+> 	"teamName": "HR",
+> 	"teamLeaderId": 1,
+> 	"purpose": "Hiring"
 > }
 > ```
+</details>
 
 ### Update Team
 
@@ -1055,7 +1629,6 @@ Update a team.
 
 <details>
 <summary>PUT /team/</summary>
-
 
 Access: `Employee Lvl 3`
 
@@ -1069,10 +1642,10 @@ Access: `Employee Lvl 3`
 >
 > ```json
 > {
->     "teamId": 400,
->     "teamName": "HR",
->     "teamLeaderId": 1,
->     "purpose": "Hiring employees"
+> 	"teamId": 400,
+> 	"teamName": "HR",
+> 	"teamLeaderId": 1,
+> 	"purpose": "Hiring employees"
 > }
 > ```
 >
@@ -1085,12 +1658,13 @@ Access: `Employee Lvl 3`
 >
 > ```json
 > {
->     "teamId": 400,
->     "teamName": "HR",
->     "teamLeaderId": 1,
->     "purpose": "Hiring employees"
+> 	"teamId": 400,
+> 	"teamName": "HR",
+> 	"teamLeaderId": 1,
+> 	"purpose": "Hiring employees"
 > }
 > ```
+</details>
 
 ### Delete Team
 
@@ -1098,7 +1672,6 @@ Delete a team.
 
 <details>
 <summary>DELETE /team/</summary>
-
 
 Access: `Employee Lvl 3`
 
@@ -1112,7 +1685,7 @@ Access: `Employee Lvl 3`
 >
 > ```json
 > {
->     "teamId": 400
+> 	"teamId": 400
 > }
 > ```
 >
@@ -1125,9 +1698,10 @@ Access: `Employee Lvl 3`
 >
 > ```json
 > {
->     "teamId": 400,
->     "teamName": "HR",
->     "teamLeaderId": 1,
->     "purpose": "Hiring employees"
+> 	"teamId": 400,
+> 	"teamName": "HR",
+> 	"teamLeaderId": 1,
+> 	"purpose": "Hiring employees"
 > }
 > ```
+</details>

@@ -1,11 +1,23 @@
 import { outBindObject } from "./connection.js"
 
-export async function getAllOrders(conn, openOnly = false) {
+export async function getAllOrders(conn, limit, openOnly) {
 	const query =
 		"SELECT ORDER_ID, NUMBER_PLATE, ORDER_DATE, STATUS, COMPLETION_DATE, DESCRIPTION, PRICE, PAID, CUSTOMER_NAME, EMPLOYEE_NAME, VEHICLE_NAME FROM ORDER_FACT JOIN VEHICLE ON VEHICLE_VEHICLE_ID = VEHICLE_ID JOIN CUSTOMER ON CUSTOMER_CUSTOMER_ID = CUSTOMER_ID JOIN EMPLOYEE ON EMPLOYEE_EMPLOYEE_ID = EMPLOYEE_ID" +
-		(openOnly ? " WHERE STATUS = '0'" : "") + " ORDER BY ORDER_ID DESC"
+		(openOnly ? " WHERE STATUS = '0'" : "") +
+		" ORDER BY ORDER_ID DESC FETCH NEXT :1 ROWS ONLY"
 
-	return await conn.execute(query)
+	const values = [limit]
+
+	return await conn.execute(query, values)
+}
+
+export async function getMyOrders(conn, username) {
+	const query =
+		"SELECT ORDER_ID, NUMBER_PLATE, ORDER_DATE, STATUS, COMPLETION_DATE, DESCRIPTION, PRICE, PAID, CUSTOMER_NAME, EMPLOYEE_NAME, VEHICLE_NAME FROM ORDER_FACT JOIN VEHICLE ON VEHICLE_VEHICLE_ID = VEHICLE_ID JOIN CUSTOMER ON CUSTOMER_CUSTOMER_ID = CUSTOMER_ID JOIN EMPLOYEE ON EMPLOYEE_EMPLOYEE_ID = EMPLOYEE_ID WHERE CUSTOMER_USERNAME = :1 ORDER BY ORDER_ID DESC"
+
+	const values = [username]
+
+	return await conn.execute(query, values)
 }
 
 export async function getOrder(conn, orderId) {
@@ -29,7 +41,7 @@ export async function createOrder(
 	conn,
 	numberPlate,
 	orderDate,
-	status,
+	orderOpen,
 	completionDate,
 	description,
 	price,
@@ -43,11 +55,11 @@ export async function createOrder(
 	const values = [
 		numberPlate,
 		orderDate,
-		status,
+		orderOpen ? "0" : "1",
 		completionDate,
 		description,
 		price,
-		paid,
+		paid ? "1" : "0",
 		customerId,
 		employeeId,
 		vehicleId,
@@ -64,7 +76,7 @@ export async function updateOrder(
 	orderId,
 	numberPlate,
 	orderDate,
-	status,
+	orderOpen,
 	completionDate,
 	description,
 	price,
@@ -78,11 +90,11 @@ export async function updateOrder(
 	const values = [
 		numberPlate,
 		orderDate,
-		status,
+		orderOpen ? "0" : "1",
 		completionDate,
 		description,
 		price,
-		paid,
+		paid ? "1" : "0",
 		customerId,
 		employeeId,
 		vehicleId,
@@ -95,10 +107,14 @@ export async function updateOrder(
 }
 
 export async function deleteOrder(conn, orderId) {
+	const delDetails = await getOrder(conn, orderId)
+
 	const query = "DELETE FROM ORDER_FACT WHERE ORDER_ID = :1"
 	const values = [orderId]
 
 	const result = await conn.execute(query, values, { autoCommit: true })
 
-	return result.rowsAffected === 1
+	const delCheck = (await getOrder(conn, orderId)).rows.length === 0
+
+	return result.rowsAffected === 1 && delCheck ? delDetails : null
 }
