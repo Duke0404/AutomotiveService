@@ -3,9 +3,9 @@ import oracledb from "oracledb"
 export default async function connection() {
 	try {
 		const connection = oracledb.getConnection({
-			user: "ddas",
-			password: "ddas",
-			connectString: "ora4.ii.pw.edu.pl:1521/pdb1.ii.pw.edu.pl"
+			user: process.env.DB_USER,
+			password: process.env.DB_PASSWORD,
+			connectString: process.env.DB_HOST + "/" + process.env.DB_NAME
 		})
 
 		return connection
