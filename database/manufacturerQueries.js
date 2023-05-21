@@ -47,7 +47,9 @@ export async function updateManufacturer(
 	manufacturerCountry,
 	inBusiness
 ) {
-	const query = manufacturerCountry ? "UPDATE MANUFACTURER SET MANUFACTURER_NAME = :1, MANUFACTURER_COUNTRY = :2, IN_BUSINESS = :3 WHERE MANUFACTURER_ID = :4" : "UPDATE MANUFACTURER SET MANUFACTURER_NAME = :1, IN_BUSINESS = :2 WHERE MANUFACTURER_ID = :3"
+	const query = manufacturerCountry
+		? "UPDATE MANUFACTURER SET MANUFACTURER_NAME = :1, MANUFACTURER_COUNTRY = :2, IN_BUSINESS = :3 WHERE MANUFACTURER_ID = :4"
+		: "UPDATE MANUFACTURER SET MANUFACTURER_NAME = :1, IN_BUSINESS = :2 WHERE MANUFACTURER_ID = :3"
 	const values = manufacturerCountry
 		? [manufacturerName, manufacturerCountry, inBusiness ? "1" : "0", manufacturerId]
 		: [manufacturerName, inBusiness ? "1" : "0", manufacturerId]

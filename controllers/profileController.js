@@ -5,9 +5,8 @@ import { getCustomer, updateCustomer } from "../database/customerQueries.js"
 const profileFromArray = profile => ({
 	name: profile[1],
 	address: profile[2],
-	username: profile[3],
+	username: profile[3]
 })
-
 
 export async function getMyProfileController(req, res) {
 	const user = req.user

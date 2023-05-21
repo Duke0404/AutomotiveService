@@ -13,7 +13,9 @@ const employeeRouter = Router()
 employeeRouter.get("/all", authMiddleware, getAllController)
 
 // Get one employee
-employeeRouter.get("/:employeeId", authMiddleware, async (req, res) => getOneController(req, res, +req.params.employeeId))
+employeeRouter.get("/:employeeId", authMiddleware, async (req, res) =>
+	getOneController(req, res, +req.params.employeeId)
+)
 
 // Update a employee
 employeeRouter.patch("/", authMiddleware, updateController)

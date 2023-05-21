@@ -25,7 +25,7 @@ export async function registerCreate(conn, details, employee) {
 				details.email,
 				details.phone,
 				details.teamId
-		]
+		  ]
 		: [details.username, details.password, details.name, details.address]
 
 	await conn.execute(query, values, { autoCommit: true })

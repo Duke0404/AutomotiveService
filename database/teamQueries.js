@@ -37,8 +37,12 @@ export async function createTeam(conn, teamId, teamName, purpose, teamLeaderId) 
 }
 
 export async function updateTeam(conn, teamId, teamName, purpose, teamLeaderId) {
-	const query = purpose ? "UPDATE TEAM SET TEAM_NAME = :1, PURPOSE = :2, TEAM_LEADER_ID = :3 WHERE TEAM_ID = :4" : "UPDATE TEAM SET TEAM_NAME = :1, TEAM_LEADER_ID = :2 WHERE TEAM_ID = :3"
-	const values = purpose ? [teamName, purpose, teamLeaderId, teamId] : [teamName, teamLeaderId, teamId]
+	const query = purpose
+		? "UPDATE TEAM SET TEAM_NAME = :1, PURPOSE = :2, TEAM_LEADER_ID = :3 WHERE TEAM_ID = :4"
+		: "UPDATE TEAM SET TEAM_NAME = :1, TEAM_LEADER_ID = :2 WHERE TEAM_ID = :3"
+	const values = purpose
+		? [teamName, purpose, teamLeaderId, teamId]
+		: [teamName, teamLeaderId, teamId]
 
 	const result = await conn.execute(query, values, { autoCommit: true })
 
