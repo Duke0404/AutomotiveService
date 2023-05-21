@@ -70,6 +70,12 @@ describe("GET /customer/:id", () => {
 		}))
 
 	it("should return 401 Unauthorized", async () => await supertest(baseUrl).get(url).expect(401))
+
+	it("should return 400 Bad Request", async () =>
+		await supertest(baseUrl)
+			.get("/customer/abc")
+			.set("Authorization", employee1JWT)
+			.expect(400))
 })
 
 // Employee
@@ -97,6 +103,18 @@ describe("GET /employee/:id", () => {
 		}))
 
 	it("should return 401 Unauthorized", async () => await supertest(baseUrl).get(url).expect(401))
+
+	it("should return 404 Not Found", async () =>
+		await supertest(baseUrl)
+			.get("/employee/400")
+			.set("Authorization", employee1JWT)
+			.expect(404))
+
+	it("should return 400 Bad Request", async () =>
+		await supertest(baseUrl)
+			.get("/employee/abc")
+			.set("Authorization", employee1JWT)
+			.expect(400))
 })
 
 // Manufacturer
@@ -171,6 +189,12 @@ describe("GET /order/:id", () => {
 		}))
 
 	it("should return 401 Unauthorized", async () => await supertest(baseUrl).get(url).expect(401))
+
+	it("should return 404 Not Found", async () =>
+		await supertest(baseUrl).get("/order/400").set("Authorization", employee1JWT).expect(404))
+
+	it("should return 400 Bad Request", async () =>
+		await supertest(baseUrl).get("/order/abc").set("Authorization", employee1JWT).expect(400))
 })
 
 // Profile
@@ -219,6 +243,18 @@ describe("GET /vehicle-class/:id", () => {
 		}))
 
 	it("should return 401 Unauthorized", async () => await supertest(baseUrl).get(url).expect(401))
+
+	it("should return 404 Not Found", async () =>
+		await supertest(baseUrl)
+			.get("/vehicle-class/400")
+			.set("Authorization", employee1JWT)
+			.expect(404))
+
+	it("should return 400 Bad Request", async () =>
+		await supertest(baseUrl)
+			.get("/vehicle-class/abc")
+			.set("Authorization", employee1JWT)
+			.expect(400))
 })
 
 // Vehicle
@@ -246,4 +282,10 @@ describe("GET /vehicle/:id", () => {
 	})
 
 	it("should return 401 Unauthorized", async () => await supertest(baseUrl).get(url).expect(401))
+
+	it("should return 404 Not Found", async () =>
+		await supertest(baseUrl).get("/vehicle/400").set("Authorization", employee1JWT).expect(404))
+
+	it("should return 400 Bad Request", async () =>
+		await supertest(baseUrl).get("/vehicle/abc").set("Authorization", employee1JWT).expect(400))
 })
