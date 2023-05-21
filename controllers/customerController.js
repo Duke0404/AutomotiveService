@@ -1,16 +1,13 @@
 import connection from "../database/connection.js"
 import checkAccess, { checkRoleClearance } from "../database/accessQueries.js"
 
-import {
-	getAllCustomers,
-	getCustomer,
-} from "../database/customerQueries.js"
+import { getAllCustomers, getCustomer } from "../database/customerQueries.js"
 
 const customerFromArray = customer => ({
 	customerId: customer[0],
 	customerName: customer[1],
 	customerAddress: customer[2],
-	customerUsername: customer[3],
+	customerUsername: customer[3]
 })
 
 export async function getAllController(req, res) {
@@ -29,9 +26,7 @@ export async function getAllController(req, res) {
 
 		const result = {
 			count: customers.rows.length,
-			customers: customers.rows.map(customer =>
-				customerFromArray(customer)
-			)
+			customers: customers.rows.map(customer => customerFromArray(customer))
 		}
 
 		res.json(result)

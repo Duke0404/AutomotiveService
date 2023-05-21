@@ -15,7 +15,9 @@ export async function getType(conn, typeId) {
 }
 
 export async function checkTypeExists(conn, typeIdentifier, usingId = true) {
-	const query = `SELECT TYPE_ID FROM VEHICLE_CLASS WHERE ${usingId ? "TYPE_ID" : "TYPE_NAME"} = :1`
+	const query = `SELECT TYPE_ID FROM VEHICLE_CLASS WHERE ${
+		usingId ? "TYPE_ID" : "TYPE_NAME"
+	} = :1`
 	const values = [typeIdentifier]
 
 	const result = await conn.execute(query, values)

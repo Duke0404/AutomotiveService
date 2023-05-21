@@ -4,41 +4,41 @@ Serves as Backend for an API for an auto repair & servicing shop. Provides data 
 
 ## Endpoints
 
-- [Authentication](#authentication)
-	- [Login](#login)
-	- [Register](#register)
-	- [Employee Login](<#Employee Login>)
-	- [Employee Add](<#Employee Add>)
-- [Profile](#profile)
-	- [Get Profile](<#Get Profile>)
-	- [Update Profile](<#Update Profile>)
-- [Customer](#customer)
-	- [Get All Customer](<#Get Customers>)
-	- [Get Customer](<#Get Customer>)
-- [Employee](#employee)
-	- [Get All Employees](<#Get Employees>)
-	- [Get Employee](<#Get Employee>)
-	- [Update Employee](<#Update Employee>)
-	- [Delete Employee](<#Delete Employee>)
-- [Order](#order)
-	- [Get All Orders](<#Get Orders>)
-	- [Get My Orders](<#Get My Orders>)
-	- [Get Order](<#Get Order>)
-	- [Create Order](<#Create Order>)
-	- [Update Order](<#Update Order>)
-	- [Delete Order](<#Delete Order>)
-- [Vehicle](#vehicle)
-	- [Get All Vehicles](<#Get Vehicles>)
-	- [Get Vehicle](<#Get Vehicle>)
-	- [Create Vehicle](<#Create Vehicle>)
-	- [Update Vehicle](<#Update Vehicle>)
-	- [Delete Vehicle](<#Delete Vehicle>)
-- [Team](#team)
-	- [Get All Teams](<#Get Teams>)
-	- [Get Team](<#Get Team>)
-	- [Create Team](<#Create Team>)
-	- [Update Team](<#Update Team>)
-	- [Delete Team](<#Delete Team>)
+-   [Authentication](#authentication)
+    -   [Login](#login)
+    -   [Register](#register)
+    -   [Employee Login](<#Employee Login>)
+    -   [Employee Add](<#Employee Add>)
+-   [Profile](#profile)
+    -   [Get Profile](<#Get Profile>)
+    -   [Update Profile](<#Update Profile>)
+-   [Customer](#customer)
+    -   [Get All Customer](<#Get Customers>)
+    -   [Get Customer](<#Get Customer>)
+-   [Employee](#employee)
+    -   [Get All Employees](<#Get Employees>)
+    -   [Get Employee](<#Get Employee>)
+    -   [Update Employee](<#Update Employee>)
+    -   [Delete Employee](<#Delete Employee>)
+-   [Order](#order)
+    -   [Get All Orders](<#Get Orders>)
+    -   [Get My Orders](<#Get My Orders>)
+    -   [Get Order](<#Get Order>)
+    -   [Create Order](<#Create Order>)
+    -   [Update Order](<#Update Order>)
+    -   [Delete Order](<#Delete Order>)
+-   [Vehicle](#vehicle)
+    -   [Get All Vehicles](<#Get Vehicles>)
+    -   [Get Vehicle](<#Get Vehicle>)
+    -   [Create Vehicle](<#Create Vehicle>)
+    -   [Update Vehicle](<#Update Vehicle>)
+    -   [Delete Vehicle](<#Delete Vehicle>)
+-   [Team](#team)
+    -   [Get All Teams](<#Get Teams>)
+    -   [Get Team](<#Get Team>)
+    -   [Create Team](<#Create Team>)
+    -   [Update Team](<#Update Team>)
+    -   [Delete Team](<#Delete Team>)
 
 ## Authentication
 
@@ -71,6 +71,7 @@ Logs in a customer and returns a JWT token.
 > 	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIwIjoiMSIsIjEiOiIyIiwiMiI6IjMiLCIzIjoiNCIsImV4cCI6MTY4NDU0MDU0NH0.PX_MZScjS-F2r7pDFmvsRv44oasis-5ct8IdXVOpkfI"
 > }
 > ```
+
 </details>
 
 ### Register
@@ -107,6 +108,7 @@ Registers a customer and returns a JWT token.
 > 	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIwIjoiMSIsIjEiOiIyIiwiMiI6IjMiLCIzIjoiNCIsIjQiOiI1IiwiZXhwIjoxNjg0NTQ2NjExfQ.0sGtBixKgFt84g1ywUpqLHbxFSTgWijMPWyooVesWHg"
 > }
 > ```
+
 </details>
 
 ### Employee Login
@@ -141,6 +143,7 @@ Logs in an employee and returns a JWT token.
 > 	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIwIjoiZCIsIjEiOiJlIiwiMiI6InYiLCIzIjoiLiIsIjQiOiJkIiwiNSI6ImEiLCI2IjoicyIsImV4cCI6MTY4NDU0Njg3MX0.GJlV96RgZ-p0c_jEWctRjr0ygOVrOnLOukeItEs-0R8"
 > }
 > ```
+
 </details>
 
 ### Employee Add
@@ -184,6 +187,7 @@ Access: `Employee Lvl 2`
 > 	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIwIjoiMSIsIjEiOiIyIiwiMiI6IjMiLCIzIjoiNCIsIjQiOiI1IiwiNSI6IjYiLCJleHAiOjE2ODQ1NDkwMzl9.NlTaWLtZDFMKgYbmvXkDLgcUSYIOQ23o2v-QKkekI40"
 > }Customer
 > ```
+
 </details>
 
 ## Profile
@@ -215,6 +219,7 @@ Access: `Customer`
 > ```json
 > { "name": "Devansh Das", "address": null, "username": "duke" }
 > ```
+
 </details>
 
 ### Update Profile
@@ -251,6 +256,7 @@ Access: `Customer`
 > ```json
 > { "name": "Devansh Das", "address": "Warsaw", "username": "duke" }
 > ```
+
 </details>
 
 ## Customer
@@ -298,6 +304,7 @@ Access: `Employee Lvl 1`
 > 	]
 > }
 > ```
+
 </details>
 
 ### Get Customer
@@ -336,6 +343,7 @@ Access: `Employee Lvl 1`
 > 	"customerUsername": "duke"
 > }
 > ```
+
 </details>
 
 ## Employee
@@ -397,6 +405,7 @@ Access: `Employee Lvl 1`
 >     ]
 > }
 > ```
+
 </details>
 
 ### Get Employee
@@ -438,6 +447,7 @@ Access: `Employee Lvl 1`
 > 	"teamName": "Cleaning Crew 1"
 > }
 > ```
+
 </details>
 
 ### Update Employee
@@ -487,6 +497,7 @@ Access: `Employee Lvl 2`
 > 	"teamName": "Cleaning Crew 1"
 > }
 > ```
+
 </details>
 
 ### Delete Employee
@@ -530,6 +541,7 @@ Access: `Employee Lvl 2`
 > 	"teamName": "Cleaning Crew 1"
 > }
 > ```
+
 </details>
 
 ## Order
@@ -597,6 +609,7 @@ Access: `Employee Lvl 1`
 > 	]
 > }
 > ```
+
 </details>
 
 ### Get My Orders
@@ -656,6 +669,7 @@ Access: `Customer`
 > 	]
 > }
 > ```
+
 </details>
 
 ### Get Order
@@ -701,6 +715,7 @@ Access: `Employee Lvl 1`
 > 	"vehicleName": "Figo 1st Gen"
 > }
 > ```
+
 </details>
 
 ### Create Order
@@ -757,6 +772,7 @@ Access: `Employee Lvl 1`
 > 	"vehicleName": "Mustang GT5.0"
 > }
 > ```
+
 </details>
 
 ### Update Order
@@ -814,6 +830,7 @@ Access: `Employee Lvl 1`
 > 	"vehicleName": "Mustang GT5.0"
 > }
 > ```
+
 </details>
 
 ### Delete Order
@@ -861,6 +878,7 @@ Access: `Employee Lvl 1`
 > 	"vehicleName": "Mustang GT5.0"
 > }
 > ```
+
 </details>
 
 ## Vehicle
@@ -917,6 +935,7 @@ Access: `Employee Lvl 1`
 > 	]
 > }
 > ```
+
 </details>
 
 ### Get Vehicle
@@ -956,6 +975,7 @@ Access: `Employee Lvl 1`
 > 	"manufacturerName": "Tesla"
 > }
 > ```
+
 </details>
 
 ### Create Vehicle
@@ -1000,6 +1020,7 @@ Access: `Employee Lvl 1`
 > 	"manufacturerName": "Tesla"
 > }
 > ```
+
 </details>
 
 ### Update Vehicle
@@ -1045,6 +1066,7 @@ Access: `Employee Lvl 1`
 > 	"manufacturerName": "Tesla"
 > }
 > ```
+
 </details>
 
 ### Delete Vehicle
@@ -1086,6 +1108,7 @@ Access: `Employee Lvl 2`
 > 	"manufacturerName": "Tesla"
 > }
 > ```
+
 </details>
 
 ## Manufacturer
@@ -1145,6 +1168,7 @@ Access: `Employee Lvl 1`
 > 	]
 > }
 > ```
+
 </details>
 
 ### Get Manufacturer
@@ -1183,6 +1207,7 @@ Access: `Employee Lvl 1`
 > 	"inBusiness": true
 > }
 > ```
+
 </details>
 
 ### Create Manufacturer
@@ -1225,6 +1250,7 @@ Access: `Employee Lvl 2`
 > 	"inBusiness": true
 > }
 > ```
+
 </details>
 
 ### Update Manufacturer
@@ -1268,6 +1294,7 @@ Access: `Employee Lvl 2`
 > 	"inBusiness": false
 > }
 > ```
+
 </details>
 
 ### Delete Manufacturer
@@ -1308,6 +1335,7 @@ Access: `Employee Lvl 2`
 > 	"inBusiness": false
 > }
 > ```
+
 </details>
 
 ## Vehicle Class
@@ -1373,6 +1401,7 @@ Access: `Employee Lvl 1`
 > 	]
 > }
 > ```
+
 </details>
 
 ### Get Vehicle Class
@@ -1410,6 +1439,7 @@ Access: `Employee Lvl 1`
 > 	"typeDescription": "Rear door that swings upward to provide access to the main interior of the car as a cargo area."
 > }
 > ```
+
 </details>
 
 ### Create Vehicle Class
@@ -1450,6 +1480,7 @@ Access: `Employee Lvl 2`
 > 	"typeDescription": "Large vehicle designed to transport cargo & carry specialized payloads."
 > }
 > ```
+
 </details>
 
 ### Update Vehicle Class
@@ -1491,6 +1522,7 @@ Access: `Employee Lvl 2`
 > 	"typeDescription": "Large vehicle designed to transport cargo."
 > }
 > ```
+
 </details>
 
 ### Delete Vehicle Class
@@ -1530,6 +1562,7 @@ Access: `Employee Lvl 2`
 > 	"typeDescription": "Large vehicle designed to transport cargo."
 > }
 > ```
+
 </details>
 
 ## Team
@@ -1578,6 +1611,7 @@ Access: `Employee Lvl 1`
 > 	]
 > }
 > ```
+
 </details>
 
 ### Create Team
@@ -1621,6 +1655,7 @@ Access: `Employee Lvl 3`
 > 	"purpose": "Hiring"
 > }
 > ```
+
 </details>
 
 ### Update Team
@@ -1664,6 +1699,7 @@ Access: `Employee Lvl 3`
 > 	"purpose": "Hiring employees"
 > }
 > ```
+
 </details>
 
 ### Delete Team
@@ -1704,4 +1740,5 @@ Access: `Employee Lvl 3`
 > 	"purpose": "Hiring employees"
 > }
 > ```
+
 </details>
